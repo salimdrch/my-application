@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="bt_connexion">Connexion</string>
+    <string name="bt_creer">Créer compte</string>
+    <string name="bt_valider">Valider</string>
+    <string name="bt_retour">Retour</string>
+    <string name="bt_play">Play</string>
+    <string name="bt_score">Scores</string>
+    <string name="c_pseudo">Pseudo</string>
+    <string name="c_prenom">Prenom</string>
+    <string name="c_mdp">Mot de passe</string>
+
+</resources>

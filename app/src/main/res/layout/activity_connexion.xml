@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="@color/fond"
+android:orientation="vertical"
+tools:context=".ConnexionActivity">
+
+<ImageView
+    android:layout_marginTop="70dp"
+    android:layout_width="match_parent"
+    android:layout_height="250dp"
+    android:layout_gravity="center"
+    android:src="@drawable/quizz" />
+
+<EditText
+    android:layout_gravity="center"
+    android:id="@+id/editTxt"
+    android:layout_width="301dp"
+    android:layout_height="wrap_content"
+    android:ems="10"
+    android:hint="@string/c_pseudo"
+    android:inputType="text" />
+
+<EditText
+    android:layout_gravity="center"
+    android:id="@+id/editPwd"
+    android:layout_width="301dp"
+    android:layout_height="wrap_content"
+    android:ems="10"
+    android:hint="@string/c_mdp"
+    android:inputType="textPassword"/>
+
+<Button
+    android:id="@+id/b_valider"
+    android:layout_marginTop="30dp"
+    android:layout_gravity="center"
+    android:layout_width="153dp"
+    android:layout_height="65dp"
+    android:background="@color/colorB"
+    android:text="@string/bt_valider" />
+
+
+    <Button
+        android:id="@+id/b_retour"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center"
+        android:layout_width="153dp"
+        android:layout_height="65dp"
+        android:background="@color/colorB"
+        android:text="@string/bt_retour" />
+</LinearLayout>
