@@ -72,10 +72,6 @@ public class DataBase extends SQLiteOpenHelper{
                 + ")";
         db.execSQL( sql_reponse );
         Log.i( "DataBase", "table reponse créer" );
-
-
-
-
     }
 
     // METHODE PAR DEFAULT SI ON VEUT FAIRE UNE MAJ DE LA BASE DE DONNEE
@@ -97,9 +93,11 @@ public class DataBase extends SQLiteOpenHelper{
         Cursor c =  getWritableDatabase().rawQuery( strsql, null );
         if (c.getCount() != 0){
             Log.i( "DataBase", "Joueur dans la base de donnée" );
+            c.close();
             return true;
         }
         Log.i( "DataBase", "Joueur n'est pas dans la base de donnée" );
+        c.close();
         return false;
     }
 
@@ -109,10 +107,17 @@ public class DataBase extends SQLiteOpenHelper{
         Cursor c = getWritableDatabase().rawQuery( strsql, null );
         if (c.getCount() != 0){
             Log.i( "DataBase", "Pseudo dans la base de donnée" );
+            c.close();
             return true;
         }
         Log.i( "DataBase", "Pseudo n'est pas dans la base de donnée" );
+        c.close();
         return false;
     }
 
+    public void ajouterScores(int score, int idJoueur){
+        String str_sql = "insert into Scores (score,idJoueur) values ('" + score + "','" + idJoueur + "')";
+        getWritableDatabase().execSQL( str_sql );
+        Log.i( "DataBase", "Score ajouté" );
+    }
 }
