@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/fond"
     android:orientation="vertical"
-    tools:context=".CompteActivity">
+    tools:context=".gestionCompte.CompteActivity">
 
     <ImageButton
         android:id="@+id/img_bt"
@@ -23,6 +23,7 @@
         android:layout_width="301dp"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:drawableLeft="@drawable/ic_action_user"
         android:hint="@string/c_pseudo"
         android:inputType="text" />
 
@@ -32,6 +33,7 @@
         android:layout_width="301dp"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:drawableLeft="@drawable/ic_action_name"
         android:hint="@string/c_prenom"
         android:inputType="text" />
 
@@ -41,6 +43,7 @@
         android:id="@+id/mdp"
         android:layout_width="301dp"
         android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_action_password"
         android:ems="10"
         android:inputType="textPassword" />
 

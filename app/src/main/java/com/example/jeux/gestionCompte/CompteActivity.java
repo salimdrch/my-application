@@ -1,15 +1,19 @@
-package com.example.jeux;
+package com.example.jeux.gestionCompte;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import com.example.jeux.AccueilActivity;
+import com.example.jeux.dataBase.DataBase;
+import com.example.jeux.MainActivity;
+import com.example.jeux.R;
 
 public class CompteActivity extends AppCompatActivity {
 
@@ -20,19 +24,16 @@ public class CompteActivity extends AppCompatActivity {
     private Button valide;
     private DataBase dataBase;
 
-    public DataBase getDataBase() {
-        return dataBase;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_compte );
-        this.imageButton = (ImageButton) findViewById( R.id.img_bt );
-        this.name = (EditText) findViewById( R.id.name );
-        this.firstname = (EditText) findViewById( R.id.firstname );
-        this.mdp = (EditText) findViewById( R.id.mdp );
-        this.valide = (Button) findViewById( R.id.b_valide );
+        this.imageButton = findViewById( R.id.img_bt );
+        this.name = findViewById( R.id.name );
+        this.firstname = findViewById( R.id.firstname );
+        this.mdp = findViewById( R.id.mdp );
+        this.valide = findViewById( R.id.b_valide );
         dataBase = new DataBase( this );
 
         imageButton.setOnClickListener( new View.OnClickListener() {

@@ -7,6 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.jeux.dataBase.DataBase;
+import com.example.jeux.gestionCompte.CompteActivity;
+import com.example.jeux.gestionCompte.ConnexionActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     private Button b_connex;
@@ -15,8 +19,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
-        setContentView( R.layout.activity_main );this.b_connex = (Button)  findViewById(R.id.b_connex);
-        this.b_cc = (Button) findViewById( R.id.b_cc );
+        setContentView( R.layout.activity_main );
+        this.b_connex = findViewById(R.id.b_connex);
+        new DataBase( this ).importCsvToBdd( this );
+        this.b_cc = findViewById( R.id.b_cc );
         b_connex.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {

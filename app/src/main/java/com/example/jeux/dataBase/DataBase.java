@@ -1,4 +1,4 @@
-package com.example.jeux;
+package com.example.jeux.dataBase;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -6,8 +6,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.example.jeux.R;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.StringTokenizer;
 
 public class DataBase extends SQLiteOpenHelper{
 
@@ -120,4 +126,106 @@ public class DataBase extends SQLiteOpenHelper{
         getWritableDatabase().execSQL( str_sql );
         Log.i( "DataBase", "Score ajouté" );
     }
+
+    // Inserer theme
+    public void insertTheme( String theme){
+        String sql_theme1 = "insert into Theme (theme) values ('" + theme +"')";
+        getWritableDatabase().execSQL( sql_theme1 );
+    }
+
+    //theme dans la base de donnée
+    public boolean themeInDataBase(String theme){
+        String strsql = "Select * from Theme where theme = '" + theme + "'";
+        Cursor c =  getWritableDatabase().rawQuery( strsql, null );
+        if (c.getCount() != 0){
+            Log.i( "DataBase", "Theme dans la base de donnée" );
+            c.close();
+            return true;
+        }
+        Log.i( "DataBase", "Theme n'est pas dans la base de donnée" );
+        c.close();
+        return false;
+    }
+
+    // retourner l'id du theme
+    public int getIdTheme(String theme){
+        String sql = "Select idTheme from Theme where theme = '" + theme +"'";
+        Cursor c = getWritableDatabase().rawQuery( sql,null );
+        c.moveToFirst();
+        Log.i("DataBase", "IdTheme recuperer" + c.getInt( 0 ) );
+        return c.getInt( 0 );
+    }
+
+
+    // retourner l'id du question
+    public int getIdQuestion(String question){
+        String sql = "Select idQuestion from Questions where question = '" + question +"'";
+        Cursor c = getWritableDatabase().rawQuery( sql,null );
+        c.moveToFirst();
+        Log.i("DataBase", "IdQuestion recuperer" + String.valueOf( c.getInt( 0 )));
+        return c.getInt( 0 );
+    }
+
+    // inserer la question dans la base de donnée
+    public void insererQuestion(int idTheme, String question){
+        String sql = "insert into Questions (question, idTheme) values ('" + question + "','" + idTheme + "')";
+        getWritableDatabase().execSQL( sql );
+    }
+
+    // inserer la reponse dans la base de donnée
+    public void insererReponse(int idQuestion, String reponse, int bonneReponse){
+        String sql = "insert into Reponses (reponse, bonneReponse, idQuestion) values ('" + reponse + "','" + bonneReponse + "','" + idQuestion +"')";
+        getWritableDatabase().execSQL( sql );
+    }
+
+
+
+
+    // Import CSV to BDD
+
+    public void importCsvToBdd(Context ctx) {
+        try {
+            InputStream file = ctx.getResources().openRawResource( R.raw.questionr ); // Recupérer le fichier csv
+            InputStreamReader FileReader = new InputStreamReader( file ); // lire le fichier
+            BufferedReader r = new BufferedReader( FileReader ); // enregistre dans une memoire
+            String line;
+            String value;
+            ArrayList<String> dataRow;
+            StringTokenizer token; // decouper la ligne du csv
+            while ((line = r.readLine()) != null) {
+                dataRow = new ArrayList<>();
+                token = new StringTokenizer( line, ";" ); // decouper la ligne à chaque ;
+                while (token.hasMoreElements()) { // tant que y a des cases dans le tableau, il continu
+                    value = (String) token.nextElement(); // Caste en String les lignes récupérées
+                    dataRow.add( value ); // met dans l' arrayList
+                }
+                String theme = dataRow.get( 0 );
+                String question = dataRow.get( 1 );
+                String reponse1= dataRow.get( 2 );
+                int bonneReponse1 = Integer.parseInt(dataRow.get(3));
+                String reponse2 = dataRow.get( 4 );
+                int bonneReponse2 = Integer.parseInt(dataRow.get(5));
+                String reponse3 =dataRow.get( 6 );
+                int bonneReponse3 = Integer.parseInt(dataRow.get( 7 ));
+                String reponse4= dataRow.get( 8 );
+                int bonneReponse4 = Integer.parseInt(dataRow.get( 9 ));
+
+                if ( ! themeInDataBase( theme )){
+                    insertTheme( theme );
+                 }
+                int id_theme = getIdTheme( theme );
+                insererQuestion( id_theme, question);
+                int id_question = getIdQuestion( question );
+                insererReponse( id_question, reponse1, bonneReponse1 );
+                insererReponse( id_question, reponse2, bonneReponse2 );
+                insererReponse( id_question, reponse3, bonneReponse3 );
+                insererReponse( id_question, reponse4, bonneReponse4 );
+            }
+            Log.i( "DataBase","importation reussi" );
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+
+    }
+
 }

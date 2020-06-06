@@ -1,4 +1,4 @@
-package com.example.jeux;
+package com.example.jeux.gestionCompte;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.jeux.AccueilActivity;
+import com.example.jeux.dataBase.DataBase;
+import com.example.jeux.MainActivity;
+import com.example.jeux.R;
 
 public class ConnexionActivity extends AppCompatActivity {
 
@@ -22,10 +27,10 @@ public class ConnexionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_connexion );
-        this.editTxt = (EditText) findViewById( R.id.editTxt); // Récuperer le editText
-        this.editPwd = (EditText) findViewById( R.id.editPwd );
-        this.b_valider = (Button) findViewById( R.id.b_valider );
-        this.b_retour = (Button) findViewById( R.id.b_retour );
+        this.editTxt = findViewById( R.id.editTxt); // Récuperer le editText
+        this.editPwd = findViewById( R.id.editPwd );
+        this.b_valider = findViewById( R.id.b_valider );
+        this.b_retour = findViewById( R.id.b_retour );
         dataBase = new DataBase( this );
 
         b_valider.setOnClickListener( new View.OnClickListener() {
