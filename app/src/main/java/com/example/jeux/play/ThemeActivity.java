@@ -22,6 +22,7 @@ public class ThemeActivity extends AppCompatActivity {
 
     private DataBase dataBase;
     private ArrayList<String> themes = new ArrayList<>(  );
+    private ArrayList<Theme> listTheme = new ArrayList<>();
 
 
     @Override
@@ -30,9 +31,11 @@ public class ThemeActivity extends AppCompatActivity {
         setContentView( R.layout.activity_theme );
         dataBase = new DataBase( this );
         // dataBase.insertTheme();
-        Cursor themeCursor = dataBase.getWritableDatabase().rawQuery("SELECT  theme as _id, theme FROM Theme ", null);
+        Cursor themeCursor = dataBase.getWritableDatabase().rawQuery("SELECT  idTheme, theme FROM Theme ", null);
         for (themeCursor.moveToFirst(); !themeCursor.isAfterLast(); themeCursor.moveToNext()){
-            themes.add( themeCursor.getString( 1 ) );
+            Theme t = new Theme( themeCursor.getInt( 0 ), themeCursor.getString( 1 ) );
+            listTheme.add(t);
+            themes.add( t.getTheme() );
         }
         ListView lvTheme = findViewById(R.id.list_theme);
         ArrayAdapter themeAdapter = new ArrayAdapter( this,android.R.layout.simple_list_item_1,themes );
@@ -41,7 +44,7 @@ public class ThemeActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent( getApplicationContext(), QuestionsActivity.class );
-                i.putExtra( "nomT", themes.get( position ) );
+                i.putExtra( "idtheme", listTheme.get( position ).getId() );
                 startActivity( i );
                 finish();
                 Log.i( "Test"," position : " + themes.get( position ));

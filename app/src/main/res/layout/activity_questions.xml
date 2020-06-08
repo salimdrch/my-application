@@ -4,6 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/fond"
+    android:orientation="vertical"
     tools:context=".play.QuestionsActivity">
 
+    <TextView
+        android:id="@+id/question"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginTop="100dp"
+        android:layout_width="350dp"
+        android:layout_height="200dp"
+        android:background="@color/colorB"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <GridView
+        android:id="@+id/repView"
+        android:numColumns="2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:layout_marginBottom="22dp"
+        android:layout_marginLeft="22dp"
+        android:layout_marginRight="22dp"
+        android:stretchMode="columnWidth" />
+
+
+
 </LinearLayout>
+
+
+
+
+
+

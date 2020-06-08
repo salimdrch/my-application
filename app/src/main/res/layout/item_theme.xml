@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:gravity="center"
         android:layout_height="wrap_content"
-        android:text="Study cursors"
+        android:text="Theme cursors"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </LinearLayout>

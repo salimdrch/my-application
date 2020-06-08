@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.example.jeux.R;
+import com.example.jeux.type.Questions;
+import com.example.jeux.type.Reponse;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,9 +21,11 @@ public class DataBase extends SQLiteOpenHelper{
 
     public static  final String DATABASE_NAME = "Game.db";
     public static final int DATABASE_VERSION = 1;
+    private Context context;
 
     public DataBase(Context context){
         super(context, DATABASE_NAME,null,DATABASE_VERSION);
+        this.context = context;
         Log.i("DataBase", "Base de donnée ouverte");
     }
 
@@ -77,6 +81,7 @@ public class DataBase extends SQLiteOpenHelper{
                 + "foreign key ('idQuestion') references Questions('idQuestion')"
                 + ")";
         db.execSQL( sql_reponse );
+        importCsvToBdd( context );
         Log.i( "DataBase", "table reponse créer" );
     }
 
@@ -176,6 +181,28 @@ public class DataBase extends SQLiteOpenHelper{
     public void insererReponse(int idQuestion, String reponse, int bonneReponse){
         String sql = "insert into Reponses (reponse, bonneReponse, idQuestion) values ('" + reponse + "','" + bonneReponse + "','" + idQuestion +"')";
         getWritableDatabase().execSQL( sql );
+    }
+
+    //recuperer liste des reponses
+    public ArrayList<Reponse> recupR(int idQuestion){
+        ArrayList<Reponse>  rep = new ArrayList<>(  );
+        String sql = "Select * from Reponses where idQuestion = " + idQuestion;
+        Cursor rCursor = getWritableDatabase().rawQuery( sql,null );
+        for(rCursor.moveToFirst(); !rCursor.isAfterLast(); rCursor.moveToNext()){
+            rep.add( new Reponse( rCursor.getInt( 0 ), rCursor.getString( 1 ), rCursor.getInt( 2 ) ) );
+        }
+        return rep;
+    }
+
+    //recuperer liste des questions
+    public ArrayList<Questions> recupQ(int idTheme){
+        ArrayList<Questions>  q = new ArrayList<>(  );
+        String sql = "Select * from Questions where idTheme = " + idTheme;
+        Cursor qCursor = getWritableDatabase().rawQuery( sql,null );
+        for(qCursor.moveToFirst(); !qCursor.isAfterLast(); qCursor.moveToNext()){
+            q.add( new Questions( qCursor.getInt( 0 ), qCursor.getString( 1 ), recupR(qCursor.getInt( 0 ) ) ));
+        }
+        return q;
     }
 
 

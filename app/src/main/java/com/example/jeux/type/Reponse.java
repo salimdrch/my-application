@@ -1,6 +1,6 @@
 package com.example.jeux.type;
 
-class Reponse {
+public class Reponse {
     private int id;
     private String reponse;
     private int bonneReponse;

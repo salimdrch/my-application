@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_main );
         this.b_connex = findViewById(R.id.b_connex);
-        new DataBase( this ).importCsvToBdd( this );
+        new DataBase( this );
         this.b_cc = findViewById( R.id.b_cc );
         b_connex.setOnClickListener( new View.OnClickListener() {
             @Override

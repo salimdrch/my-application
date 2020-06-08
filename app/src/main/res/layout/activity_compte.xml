@@ -18,12 +18,12 @@
         android:src="@drawable/quizz" />
 
     <EditText
-        android:layout_gravity="center"
         android:id="@+id/name"
         android:layout_width="301dp"
         android:layout_height="wrap_content"
-        android:ems="10"
+        android:layout_gravity="center"
         android:drawableLeft="@drawable/ic_action_user"
+        android:ems="10"
         android:hint="@string/c_pseudo"
         android:inputType="text" />
 

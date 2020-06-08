@@ -1,5 +1,7 @@
 package com.example.jeux.type;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 public class Questions {
@@ -29,8 +31,19 @@ public class Questions {
         this.question = question;
     }
 
-    public ArrayList<Reponse> getReponses() {
-        return reponses;
+    // recuperer la reponse en texte
+    public ArrayList<String> getSTringReponse(){
+        ArrayList<String> lRep = new ArrayList<>();
+        for (Reponse r:this.reponses) {
+            lRep.add(r.getReponse());
+            Log.i("actualiser", " rep : " + r.getReponse());
+        }
+        return lRep;
+    }
+
+    // recupere la reponse
+        public Reponse getR(int position){
+        return this.reponses.get( position );
     }
 
     public void setReponses(ArrayList<Reponse> reponses) {
