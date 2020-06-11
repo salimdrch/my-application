@@ -10,7 +10,9 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".play.QuestionsActivity"></activity>
+        <activity android:name=".gestionCompte.TabscoresActivity"></activity>
+        <activity android:name=".play.ScoreActivity" />
+        <activity android:name=".play.QuestionsActivity" />
         <activity android:name=".play.ThemeActivity" />
         <activity android:name=".gestionCompte.CompteActivity" />
         <activity android:name=".AccueilActivity" />

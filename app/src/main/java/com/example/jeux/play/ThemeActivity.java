@@ -44,6 +44,9 @@ public class ThemeActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent( getApplicationContext(), QuestionsActivity.class );
+                Intent e = getIntent();
+                i.putExtra( "idJoueur", e.getIntExtra( "idJoueur",0 ) );
+                Log.i( "DataBase accueille", "id->" + i.getIntExtra( "idJoueur" ,0) );
                 i.putExtra( "idtheme", listTheme.get( position ).getId() );
                 startActivity( i );
                 finish();

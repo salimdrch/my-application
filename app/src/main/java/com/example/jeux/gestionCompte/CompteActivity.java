@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -56,6 +57,8 @@ public class CompteActivity extends AppCompatActivity {
                 {
                     dataBase.insertJoueur( name.getText().toString(), firstname.getText().toString(), mdp.getText().toString() );
                     Intent i = new Intent( getApplicationContext(), AccueilActivity.class );
+                    i.putExtra( "idJoueur", dataBase.getIdJoueur( name.getText().toString() ));
+                    Log.i( "DataBase", "id->" + dataBase.getIdJoueur( name.getText().toString() ));
                     startActivity( i );
                     finish();
                 }

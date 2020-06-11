@@ -152,6 +152,15 @@ public class DataBase extends SQLiteOpenHelper{
         return false;
     }
 
+    // retourner id du joueur
+    public int getIdJoueur(String pseudo){
+        String str_sql = "Select idJoueur from Joueurs where name = '"+ pseudo +"'";
+        Cursor c = getWritableDatabase().rawQuery( str_sql,null );
+        c.moveToFirst();
+        Log.i("DataBase", "IdJoueur recuperer" + c.getInt( 0 ) );
+        return c.getInt( 0 );
+    }
+
     // retourner l'id du theme
     public int getIdTheme(String theme){
         String sql = "Select idTheme from Theme where theme = '" + theme +"'";
@@ -197,7 +206,7 @@ public class DataBase extends SQLiteOpenHelper{
     //recuperer liste des questions
     public ArrayList<Questions> recupQ(int idTheme){
         ArrayList<Questions>  q = new ArrayList<>(  );
-        String sql = "Select * from Questions where idTheme = " + idTheme;
+        String sql = "Select * from Questions where idTheme = " + idTheme + " order by random() limit 5";
         Cursor qCursor = getWritableDatabase().rawQuery( sql,null );
         for(qCursor.moveToFirst(); !qCursor.isAfterLast(); qCursor.moveToNext()){
             q.add( new Questions( qCursor.getInt( 0 ), qCursor.getString( 1 ), recupR(qCursor.getInt( 0 ) ) ));
@@ -205,6 +214,17 @@ public class DataBase extends SQLiteOpenHelper{
         return q;
     }
 
+    // recuperer la liste de score
+    public ArrayList<Integer> recupScore(int idJoueur){
+       ArrayList<Integer> s = new ArrayList<>(  );
+       String sql = "Select score from Scores where idJoueur = "+ idJoueur;
+       Cursor cursor = getWritableDatabase().rawQuery( sql,null );
+       for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()){
+           s.add(cursor.getInt( 0 ) );
+       }
+       Log.i( "DataBase", "TabScoreRecuperer" );
+        return s;
+    }
 
 
 

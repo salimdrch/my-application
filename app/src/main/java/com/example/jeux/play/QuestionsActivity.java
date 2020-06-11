@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.jeux.R;
 import com.example.jeux.dataBase.DataBase;
@@ -48,14 +49,29 @@ public class QuestionsActivity extends AppCompatActivity {
         repView.setOnItemClickListener( new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Reponse r = listQuestions.get( v ).getR( position );
-                if (r.getBonneReponse() == 1) {
-                    score += 10;
-                }
-                v += 1;
                 if (v < 5) {
-                    actualiser( v );
+                    Reponse r = listQuestions.get( v ).getR( position );
+                    Log.i( "reponse ->" + r.getReponse() + ", BonneR", "->" + r.getBonneReponse()  );
+                    if (r.getBonneReponse() == 1) {
+                        score += 10;
+                        Log.i( "actualiser", "score : " + score );
+                        Toast.makeText(getApplicationContext(),"Bonne réponse !",Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(getApplicationContext(),"Mauvaise réponse !",Toast.LENGTH_SHORT).show();
+                    }
+                    v += 1;}
+                    if (v != 5){actualiser( v );
+                    }else{
+                    Intent i = new Intent( getApplicationContext(),ScoreActivity.class );
+                    Intent e = getIntent();
+                    i.putExtra( "idJoueur", e.getIntExtra( "idJoueur",0 ) );
+                    Log.i( "DataBase accueille", "id->" + i.getIntExtra( "idJoueur" ,0) );
+                    i.putExtra( "score", score );
+                    startActivity( i );
+                    finish();
+                    Log.i( "actualiser", "nouvelle activite" );
                 }
+                
                 Log.i( "actualiser", "v : " + v );
             }
             });
