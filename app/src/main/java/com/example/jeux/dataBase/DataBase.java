@@ -5,11 +5,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-
 import com.example.jeux.R;
 import com.example.jeux.type.Questions;
 import com.example.jeux.type.Reponse;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -81,8 +79,8 @@ public class DataBase extends SQLiteOpenHelper{
                 + "foreign key ('idQuestion') references Questions('idQuestion')"
                 + ")";
         db.execSQL( sql_reponse );
-        importCsvToBdd( context );
         Log.i( "DataBase", "table reponse créer" );
+        //importCsvToBdd( context );
     }
 
     // METHODE PAR DEFAULT SI ON VEUT FAIRE UNE MAJ DE LA BASE DE DONNEE
@@ -206,7 +204,7 @@ public class DataBase extends SQLiteOpenHelper{
     //recuperer liste des questions
     public ArrayList<Questions> recupQ(int idTheme){
         ArrayList<Questions>  q = new ArrayList<>(  );
-        String sql = "Select * from Questions where idTheme = " + idTheme + " order by random() limit 5";
+        String sql = "Select * from Questions where idTheme = " + idTheme + " order by random() limit 10";
         Cursor qCursor = getWritableDatabase().rawQuery( sql,null );
         for(qCursor.moveToFirst(); !qCursor.isAfterLast(); qCursor.moveToNext()){
             q.add( new Questions( qCursor.getInt( 0 ), qCursor.getString( 1 ), recupR(qCursor.getInt( 0 ) ) ));
@@ -214,10 +212,10 @@ public class DataBase extends SQLiteOpenHelper{
         return q;
     }
 
-    // recuperer la liste de score
+    // recuperer la liste de int
     public ArrayList<Integer> recupScore(int idJoueur){
        ArrayList<Integer> s = new ArrayList<>(  );
-       String sql = "Select score from Scores where idJoueur = "+ idJoueur;
+       String sql = "Select score from Scores where idJoueur = "+ idJoueur + " order by idScore desc";
        Cursor cursor = getWritableDatabase().rawQuery( sql,null );
        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()){
            s.add(cursor.getInt( 0 ) );

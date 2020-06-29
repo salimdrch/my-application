@@ -34,7 +34,7 @@ public class ScoreActivity extends AppCompatActivity {
         dataBase.ajouterScores( score,id );
         Log.i( "DataBase", "score ajouter" );
         Log.i( "DataBase", "id" + id );
-        textView.setText( "Score : " + score );
+        textView.setText( "Score : " + score + "/100");
         imageButton.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {

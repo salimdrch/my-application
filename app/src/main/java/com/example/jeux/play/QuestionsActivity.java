@@ -23,6 +23,7 @@ import java.util.ArrayList;
 
 public class QuestionsActivity extends AppCompatActivity {
 
+    private int idQ;
     private ArrayAdapter repAdapter;
     private GridView repView;
     int score = 0;
@@ -49,7 +50,7 @@ public class QuestionsActivity extends AppCompatActivity {
         repView.setOnItemClickListener( new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (v < 5) {
+                if (v < 10) {
                     Reponse r = listQuestions.get( v ).getR( position );
                     Log.i( "reponse ->" + r.getReponse() + ", BonneR", "->" + r.getBonneReponse()  );
                     if (r.getBonneReponse() == 1) {
@@ -57,10 +58,10 @@ public class QuestionsActivity extends AppCompatActivity {
                         Log.i( "actualiser", "score : " + score );
                         Toast.makeText(getApplicationContext(),"Bonne réponse !",Toast.LENGTH_SHORT).show();
                     }else {
-                        Toast.makeText(getApplicationContext(),"Mauvaise réponse !",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),"Mauvaise réponse !" ,Toast.LENGTH_SHORT).show();
                     }
                     v += 1;}
-                    if (v != 5){actualiser( v );
+                    if (v != 10){actualiser( v );
                     }else{
                     Intent i = new Intent( getApplicationContext(),ScoreActivity.class );
                     Intent e = getIntent();
@@ -79,6 +80,7 @@ public class QuestionsActivity extends AppCompatActivity {
 
     public void actualiser(int i){
         Questions question = listQuestions.get( i );
+        idQ = question.getId();
         rep = question.getSTringReponse();
         q.setText( question.getQuestion() );
         repAdapter.clear(); // retirer toute les reponses
